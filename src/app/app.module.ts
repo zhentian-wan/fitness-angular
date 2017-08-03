@@ -41,5 +41,4 @@ export class AppModule {}
  storageBucket: "fitness-app-a26ed.appspot.com",
  messagingSenderId: "781493219422"
  };
- firebase.initializeApp(config);
 * */
