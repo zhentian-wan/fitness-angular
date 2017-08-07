@@ -9,6 +9,8 @@ import { Store } from 'store';
 // containers
 import { AppComponent } from './containers/app/app.component';
 import {AuthModule} from '../auth/auth.module';
+import {AppHeaderComponent} from './components/app-header/app-header.component';
+import {AppNavComponent} from './components/app-nav/app-nav.component';
 
 // components
 
@@ -22,7 +24,9 @@ export const ROUTES: Routes = [];
     AuthModule
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    AppHeaderComponent,
+    AppNavComponent
   ],
   providers: [
     Store
