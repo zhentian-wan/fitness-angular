@@ -1,3 +1,4 @@
+///<reference path="shared/services/auth/auth.service.ts"/>
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
