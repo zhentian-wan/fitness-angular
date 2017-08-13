@@ -34,7 +34,11 @@ import {Store} from 'store';
            <img src="/img/face.svg" alt="no meals">
            No meals, add new meal to add
          </div>
-        <!-- meal ngFor -->
+        
+        <list-item
+          [item]="meal"
+          *ngFor="let meal of meals"
+        ></list-item>
       </div>
     </div>
   `

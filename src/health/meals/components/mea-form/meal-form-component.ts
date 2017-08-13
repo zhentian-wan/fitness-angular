@@ -14,7 +14,7 @@ import {Meal} from '../../../shared/services/meals/meals.service';
             <h3>Meal name</h3>
             <input type="text" 
                    formControlName="name"
-                   placeholder="e.g. English Breakfest">
+                   placeholder="e.g. English Breakfast">
             <div class="error" *ngIf="required">
               Workout name is required
             </div>
@@ -38,9 +38,7 @@ import {Meal} from '../../../shared/services/meals/meals.service';
               <span
                 class="meal-form__remove"
                 (click)="removeIngredient(i)"
-              >
-                
-              </span>
+              ></span>
             </label>
           </div>
         </div>
