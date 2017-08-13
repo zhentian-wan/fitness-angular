@@ -37,6 +37,7 @@ import {Store} from 'store';
         
         <list-item
           [item]="meal"
+          (remove)="removeMeal($event)"
           *ngFor="let meal of meals"
         ></list-item>
       </div>
@@ -62,6 +63,10 @@ export class MealsComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  removeMeal(meal: Meal) {
+    this.mealsService.removeMeal(meal.$key);
   }
 
 }
