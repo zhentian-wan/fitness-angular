@@ -25,7 +25,7 @@ import 'rxjs/add/operator/switchMap';
       <div>
         <meal-form
           (create)="addMeal($event)"
-        ></meal-form>
+        ></meal-form> 
       </div>
     </div>
   `
