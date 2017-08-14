@@ -1,5 +1,5 @@
 
-import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormArray, FormGroup, FormControl, Validators} from '@angular/forms';
 import {Meal} from '../../../shared/services/meals/meals.service';
 @Component({
@@ -60,6 +60,9 @@ import {Meal} from '../../../shared/services/meals/meals.service';
   `
 })
 export class MealFormComponent {
+
+  @Input() 
+  meal: Meal;
 
   @Output()
   create = new EventEmitter<Meal>();
