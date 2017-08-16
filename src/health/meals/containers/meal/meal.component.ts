@@ -13,11 +13,17 @@ import {Router} from '@angular/router';
           <span>Create meal</span>
         </h1>
       </div>
-      <div>
+      <div *ngIf="meal$ | async as meal; else loading">
         <meal-form
           (create)="addMeal($event)"
         ></meal-form>
       </div>
+      <ng-template>
+        <div class="message">
+          <img src="/img/loading.svg" alt="loading">
+          Fetching Meal...
+        </div>
+      </ng-template>
     </div>
   `
 })
