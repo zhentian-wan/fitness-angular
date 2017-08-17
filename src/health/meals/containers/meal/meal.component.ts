@@ -24,7 +24,10 @@ import 'rxjs/add/operator/switchMap';
       </div>
       <div *ngIf="meal$ | async as meal; else loading">
         <meal-form
+          [meal]="meal"
           (create)="addMeal($event)"
+          (update)="updateMeal($event)"
+          (remove)="removeMeal($event)"
         ></meal-form> 
       </div>
       <ng-template>
@@ -61,6 +64,18 @@ export class MealComponent implements OnInit, OnDestroy{
 
   async addMeal(meal: Meal) {
     await this.mealsService.addMeal(meal);
+    this.backToMeals();
+  }
+
+  async updateMeal($event: Meal) {
+    const key = this.route.snapshot.params.id;
+    await this.mealsService.updateMeal(key, $event);
+    this.backToMeals();
+  }
+
+  async removeMeal($event: Meal) {
+    const key = this.route.snapshot.params.id;
+    await this.mealsService.removeMeal(key);
     this.backToMeals();
   }
 
