@@ -1,6 +1,9 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormArray, FormGroup, FormControl, Validators} from '@angular/forms';
 import {Meal} from '../../../shared/services/meals/meals.service';
+import {NoSpecialCharsValidator} from '../../../shared/directives/validators/no-special-chars';
+
+
 @Component({
   selector: 'meal-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,10 +15,14 @@ import {Meal} from '../../../shared/services/meals/meals.service';
           <label>
             <h3>Meal name</h3>
             <input type="text"
+                   no-special-chars
                    formControlName="name"
                    placeholder="e.g. English Breakfast">
             <div class="error" *ngIf="required">
               Workout name is required
+            </div>
+            <div class="error" *ngIf="noSpecial">
+              Cannot contain special characters
             </div>
           </label>
         </div>
@@ -107,7 +114,9 @@ export class MealFormComponent implements OnChanges {
   remove = new EventEmitter<Meal>();
 
   form = this.fb.group({
-    name: ['', Validators.required],
+    name: ['', [
+      Validators.required
+    ]],
     ingredients: this.fb.array([''])
   });
 
@@ -122,6 +131,13 @@ export class MealFormComponent implements OnChanges {
     return (
       this.form.get('name').hasError('required') &&
       this.form.get('name').touched
+    );
+  }
+
+  get noSpecial() {
+    return (
+      this.form.get('name').hasError('special') &&
+        this.form.get('name').touched
     );
   }
 

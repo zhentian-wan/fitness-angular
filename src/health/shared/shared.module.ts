@@ -8,6 +8,7 @@ import {RouterModule} from '@angular/router';
 import {WorkoutsService} from './services/workouts/workouts.service';
 import {JoinPipe} from './pipes/join.pipe';
 import {WorkoutPipe} from './pipes/workout.pipe';
+import {NoSpecialCharsValidator} from './directives/validators/no-special-chars';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,12 +18,14 @@ import {WorkoutPipe} from './pipes/workout.pipe';
   declarations: [
     ListItemComponent,
     JoinPipe,
-    WorkoutPipe
+    WorkoutPipe,
+    NoSpecialCharsValidator
   ],
   exports: [
     ListItemComponent,
     JoinPipe,
-    WorkoutPipe
+    WorkoutPipe,
+    NoSpecialCharsValidator
   ]
 })
 export class SharedModule {
