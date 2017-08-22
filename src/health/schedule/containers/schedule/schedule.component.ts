@@ -10,6 +10,7 @@ import {Store} from 'store';
   template: `
     <div class="schedule">
       <schedule-calendar
+        (change)="changeDate($event)"
         [date]="date$ | async">
       </schedule-calendar>
     </div>
@@ -37,6 +38,10 @@ export class ScheduleComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  changeDate(date: Date) {
+    this.scheduleService.updateDate(date);
   }
 
 }
