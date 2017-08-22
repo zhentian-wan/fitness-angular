@@ -13,8 +13,8 @@
   background: #fff;
   cursor: pointer;
   &:hover span {
-    background: #39a1e7;
-    color: #fff;
+    background: lighten(#39a1e7, 30%);
+    color: darken(#fff, 50%);
   }
   span {
     color: #545e6f;
