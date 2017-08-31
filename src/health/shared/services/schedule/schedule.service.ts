@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AuthService} from '../../../../auth/shared/services/auth/auth.service';
+import {Subject} from 'rxjs/Subject';
 
 
 export interface ScheduleItem {
@@ -33,6 +34,14 @@ export interface ScheduleList {
 export class ScheduleService {
 
   private date$ = new BehaviorSubject<Date>(new Date());
+  private section$ = new Subject();
+
+  selected$ = this.section$
+    .do((next: any) => this.store.set('selected', next));
+
+  list$ = this.section$
+    .map((value: any) => this.store.value[value.type])
+    .do((next: any) => this.store.set('list', next));
 
   schedule$: Observable<ScheduleItem[]> = this.date$
     .do((next: any) => this.store.set('date', next))
@@ -77,6 +86,11 @@ export class ScheduleService {
 
   updateDate(date: Date) {
     this.date$.next(date);
+  }
+
+
+  selectSection(event: any) {
+    this.section$.next(event);
   }
 
   private getSchedule(startAt: number, endAt: number) {
