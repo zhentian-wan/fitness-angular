@@ -9,6 +9,7 @@ import {Workout} from '../workouts/workouts.service';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/withLatestFrom';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AuthService} from '../../../../auth/shared/services/auth/auth.service';
 import {Subject} from 'rxjs/Subject';
@@ -35,6 +36,30 @@ export class ScheduleService {
 
   private date$ = new BehaviorSubject<Date>(new Date());
   private section$ = new Subject();
+  private itemList$ = new Subject();
+
+  items$ = this.itemList$
+    .withLatestFrom(this.section$)
+    .map(([items, section]: any) => {
+
+      const id = section.data.$key;
+      const defaults: ScheduleItem = {
+        workouts: null,
+        meals: null,
+        section: section.section,
+        timestamp: new Date(section.day).getTime()
+      };
+      const payload = {
+        ...(id? section.data: defaults),
+        ...items
+      };
+
+      if(id) {
+        return this.updateSection(id, payload)
+      } else {
+        return this.createSection(payload)
+      }
+    });
 
   selected$ = this.section$
     .do((next: any) => this.store.set('selected', next));
@@ -91,6 +116,19 @@ export class ScheduleService {
 
   selectSection(event: any) {
     this.section$.next(event);
+  }
+
+  updateItems(items: string[]) {
+    this.itemList$.next(items);
+  }
+
+
+  private createSection(payload: ScheduleItem) {
+    return this.db.list(`schedule/${this.uid}`).push(payload);
+  }
+
+  private updateSection(key: string, payload: ScheduleItem) {
+    return this.db.object(`schedule/${this.uid}/${key}`).update(payload);
   }
 
   private getSchedule(startAt: number, endAt: number) {

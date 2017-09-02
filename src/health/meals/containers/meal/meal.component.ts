@@ -30,7 +30,7 @@ import 'rxjs/add/operator/switchMap';
           (remove)="removeMeal($event)"
         ></meal-form> 
       </div>
-      <ng-template>
+      <ng-template #loading>
         <div class="message">
           <img src="/img/loading.svg" alt="loading">
           Fetching Meal...
